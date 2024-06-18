@@ -1,0 +1,5 @@
+---
+Checks: 'bugprone-*,cert-*,cppcoreguidelines-*'
+WarningsAsErrors: 'cert-*,cppcoreguidelines-pro-*,cppcoreguidelines-owning-memory'
+UseColor: true
+
