@@ -5,7 +5,6 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
-#include <string_view>
 #include <vector>
 
 namespace {
@@ -33,10 +32,11 @@ int main(int argc, char const* argv[]) {
         }
     }
     log.log({Severity::Info, "What is going on here?\n"});
-    log << Severity::Info << "Hello, world!\n";
-    log << Severity::Trace << "End of program\n";
+    log << Severity::Info << "Hello, world!" << std::endl;
+    log << Severity::Trace << "End of program\n"
+        << "Port number was: " << port << '\n';
     log.flush();
 
-    return 1;
+    return 0;
 }
 

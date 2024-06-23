@@ -3,8 +3,7 @@
 
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-#include <functional>
-#include <iostream>
+#include <atomic>
 #include <mutex>
 #include <ostream>
 #include <string_view>
@@ -103,35 +102,13 @@ public:
         auto const sev_sv = severity_str(m_severity);
 
         std::scoped_lock lock{ m_mutex };
-        put('(');
-        write(sev_sv.cbegin(), sev_sv.size()); //NOLINT
-        write(") ", 2);
         std::ostream::operator<<(item);
         return *this;
     }
 
-    Logger& operator<<(char const* char_buf) {
-        if (m_severity != Severity::Critical
-        and m_severity < m_filter ) {
-            return *this;
-        }
-
-        if(char_buf == nullptr) {
-            return *this;
-        }
-
-        std::string_view cb_sv { char_buf };
-
-        std::scoped_lock lock{ m_mutex };
-        write(cb_sv.cbegin(), cb_sv.size()); //NOLINT
-        return *this;
-    }
-
-    Logger& operator<<(std::ostream& (*fp)(std::ostream&)) {
-        std::scoped_lock lock{ m_mutex };
-        fp(*this);
-        return *this;
-    }
+    Logger& operator<<(char const* char_buf);
+    Logger& operator<<(char const ch);
+    Logger& operator<<(std::ostream& (*fp)(std::ostream&));
 
     friend Logger& operator<<(Logger& logger, Severity const severity);
     friend Logger& operator<<(Logger& logger, LogMessage const message);

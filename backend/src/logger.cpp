@@ -27,10 +27,40 @@ unsigned Logger::log(LogMessage const message) {
     return ret;
 }
 
+Logger& Logger::operator<<(char const* char_buf) {
+    if (m_severity != Severity::Critical
+    and m_severity < m_filter ) {
+        return *this;
+    }
+
+    if(char_buf == nullptr) {
+        return *this;
+    }
+
+    std::string_view cb_sv { char_buf };
+
+    std::scoped_lock lock{ m_mutex };
+    write(cb_sv.cbegin(), cb_sv.size()); //NOLINT
+    return *this;
+}
+
+Logger& Logger::operator<<(char const ch) {
+    std::scoped_lock lock{ m_mutex };
+    put(ch);
+    return *this;
+}
+
+Logger& Logger::operator<<(std::ostream& (*fp)(std::ostream&)) {
+    std::scoped_lock lock{ m_mutex };
+    fp(*this);
+    return *this;
+}
+
 Logger& operator<<(Logger& logger, Severity const severity) {
     logger.m_severity = severity;
 
     auto const sev_sv = severity_str(severity);
+
     std::scoped_lock lock{ logger.m_mutex };
     //NOLINTBEGIN(cppcoreguidelines-narrowing-conversions)
     logger.put('(');
