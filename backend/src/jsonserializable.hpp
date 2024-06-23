@@ -4,12 +4,16 @@
 #include <string>
 #include <ostream>
 
+namespace Sesable {
+
 class IJsonSerializable {
 public:
-    virtual ~IJsonSerializable = default();
-    virtual void dump(std::basic_ostream<char_t>& to_file) = 0;
+    virtual ~IJsonSerializable() = default;
+    virtual void dump(std::basic_ostream<char>& to_file) = 0;
     virtual std::string dumps() = 0;
 };
+
+} // end of namespace Sesable
 
 #endif
 

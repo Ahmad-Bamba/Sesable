@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/react,c++
-# Edit at https://www.toptal.com/developers/gitignore?templates=react,c++
+# Created by https://www.toptal.com/developers/gitignore/api/react,c++,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=react,c++,visualstudiocode
 
 ### C++ ###
 # Prerequisites
@@ -51,7 +51,26 @@ psd
 thumb
 sketch
 
-# End of https://www.toptal.com/developers/gitignore/api/react,c++
+### VisualStudioCode ###
+.vscode/
 
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+# End of https://www.toptal.com/developers/gitignore/api/react,c++,visualstudiocode
+
+# CMake build folder
 build/
+
+# Asio and Boost dependencies for crow
+backend/third_party/asio
+backend/third_party/boost-1.64
 

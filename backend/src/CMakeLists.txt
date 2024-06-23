@@ -5,8 +5,17 @@ set(BACKEND_SRCS
     organization.cpp
 )
 
+set(BACKEND_LINK_LIBS
+    Crow::Crow
+)
+if (SESABLE_SANITIZE)
+    list(APPEND BACKEND_LINK_LIBS 
+        "-fsanitize=address"
+        "-fsanitize=undefined"
+    )
+endif()
+
 add_executable(sesable_backend ${BACKEND_SRCS})
-add_executable(sesable_backend_sanitized ${BACKEND_SRCS})
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(OPTIMIZATION_LEVEL "-O0")
@@ -22,16 +31,28 @@ else()
     set(DEBUG_INFO "-g0")
 endif()
 
-target_compile_options(sesable_backend 
-    PRIVATE ${OPTIMIZATION_LEVEL}
-    PRIVATE ${DEBUG_INFO}
+if (NOT SESABLE_SANITIZE)
+    target_compile_options(sesable_backend 
+        PRIVATE ${OPTIMIZATION_LEVEL}
+        PRIVATE ${DEBUG_INFO}
+    )
+else()
+    target_compile_options(sesable_backend
+        PRIVATE ${OPTIMIZATION_LEVEL}
+        PRIVATE "-ggdb3"
+        PRIVATE "-fsanitize=address"
+        PRIVATE "-fsanitize=undefined"
+        PRIVATE "-fno-omit-frame-pointer"
+    )
+endif()
+
+target_link_libraries(sesable_backend
+    PRIVATE ${BACKEND_LINK_LIBS}
 )
 
-target_compile_options(sesable_backend_santizers
-    PRIVATE ${OPTIMIZATION_LEVEL}
-    PRIVATE "-ggdb3"
-    PRIVATE "-fsanitize=address"
-    PRIVATE "-fsanitize=undefined"
-    PRIVATE "-fno-omit-frame-pointer"
-)
-
+if (SESABLE_LINT)
+    set_target_properties(sesable_backend 
+        PROPERTIES 
+        CXX_CLANG_TIDY "${CLANG_TIDY_EXE};--config-file=${PROJECT_SOURCE_DIR}/.clang-tidy"
+    )
+endif()
