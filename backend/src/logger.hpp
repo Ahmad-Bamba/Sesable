@@ -80,8 +80,8 @@ class Logger : public std::ostream {
 public:
     Severity m_filter { 0 }; 
 private:
-    Severity m_severity;
     LoggerStrBuf m_buffer;
+    Severity m_severity;
     std::mutex m_mutex;
 public:
     Logger(std::ostream& stream, Severity sev = Severity::Debug) 
@@ -98,8 +98,6 @@ public:
         and m_severity < m_filter ) {
             return *this;
         }
-
-        auto const sev_sv = severity_str(m_severity);
 
         std::scoped_lock lock{ m_mutex };
         std::ostream::operator<<(item);

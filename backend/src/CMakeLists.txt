@@ -35,6 +35,8 @@ if (NOT SESABLE_SANITIZE)
     target_compile_options(sesable_backend 
         PRIVATE ${OPTIMIZATION_LEVEL}
         PRIVATE ${DEBUG_INFO}
+        PRIVATE "-Wall"
+        PRIVATE "-Werror"
     )
 else()
     target_compile_options(sesable_backend
