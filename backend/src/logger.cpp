@@ -14,11 +14,12 @@ unsigned Logger::log(LogMessage const message) {
     {
         std::scoped_lock lock{ m_mutex };
         put('(');
-        //NOLINTBEGIN(cppcoreguidelines-narrowing-conversions)
-        write(sev_sv.cbegin(), sev_sv.size());
+        write(sev_sv.cbegin(), static_cast<std::streamsize>(sev_sv.size()));
         write(") ", 2);
-        write(message.message_str.cbegin(), message.message_str.size());
-        //NOLINTEND(cppcoreguidelines-narrowing-conversions)
+        write(
+            message.message_str.cbegin(),
+            static_cast<std::streamsize>(message.message_str.size()
+            ));
     }
     auto current_pos = tellp();
 
@@ -40,12 +41,12 @@ Logger& Logger::operator<<(char const* char_buf) {
     std::string_view cb_sv { char_buf };
 
     std::scoped_lock lock{ m_mutex };
-    write(cb_sv.cbegin(), cb_sv.size()); //NOLINT
+    write(cb_sv.cbegin(), static_cast<std::streamsize>(cb_sv.size()));
     return *this;
 }
 
 Logger& Logger::operator<<(char const ch) {
-    std::scoped_lock lock{ m_mutex };
+    std::scoped_lock lock { m_mutex };
     put(ch);
     return *this;
 }
@@ -62,17 +63,25 @@ Logger& operator<<(Logger& logger, Severity const severity) {
     auto const sev_sv = severity_str(severity);
 
     std::scoped_lock lock{ logger.m_mutex };
-    //NOLINTBEGIN(cppcoreguidelines-narrowing-conversions)
     logger.put('(');
-    logger.write(sev_sv.cbegin(), sev_sv.size());
+    logger.write(sev_sv.cbegin(), static_cast<std::streamsize>(sev_sv.size()));
     logger.write(") ", 2);
-    //NOLINTEND(cppcoreguidelines-narrowing-conversions)
     return logger;
 }
 
 Logger& operator<<(Logger& logger, LogMessage const message) {
     logger.log(message);
     return logger;
+}
+
+void Logger::filter(Severity filter) {
+    std::scoped_lock lock { m_mutex };
+    m_filter = filter;
+}
+
+Severity Logger::getCurrentFilter() const {
+    std::scoped_lock lock { m_mutex };
+    return m_filter;
 }
 
 } // end of namespace Sesable

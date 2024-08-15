@@ -14,10 +14,12 @@ namespace {
 int main(int argc, char const* argv[]) {
     using namespace Sesable;
 
+    std::ios::sync_with_stdio(false);
+
     std::vector<std::string> const args { argv, argv + argc };
 
     Logger log { std::cout };
-    log.m_filter = Severity::Trace;
+    log.filter(Severity::Trace);
 
     [[maybe_unused]] int port = default_port;
     if (argc >= 2) {

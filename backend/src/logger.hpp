@@ -77,12 +77,10 @@ class Logger : public std::ostream {
         }
     };
 
-public:
-    Severity m_filter { 0 }; 
-private:
+    Severity m_filter { 0 };
     LoggerStrBuf m_buffer;
     Severity m_severity;
-    std::mutex m_mutex;
+    std::mutex mutable m_mutex;
 public:
     Logger(std::ostream& stream, Severity sev = Severity::Debug) 
         : std::ostream(&m_buffer),
@@ -103,6 +101,9 @@ public:
         std::ostream::operator<<(item);
         return *this;
     }
+
+    void filter(Severity filter);
+    Severity getCurrentFilter() const;
 
     Logger& operator<<(char const* char_buf);
     Logger& operator<<(char const ch);
