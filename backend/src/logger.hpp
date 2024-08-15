@@ -85,7 +85,8 @@ public:
     Logger(std::ostream& stream, Severity sev = Severity::Debug) 
         : std::ostream(&m_buffer),
           m_buffer { stream },
-          m_severity { sev }
+          m_severity { sev },
+          m_mutex {}
     {}
 
     unsigned log(LogMessage const message);

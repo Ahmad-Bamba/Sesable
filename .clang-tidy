@@ -1,5 +1,19 @@
 ---
-Checks: 'bugprone-stringview-nullptr,bugprone-use-after-move,bugprone-not-null-terminated-result,bugprone-easily-swappable-parameters,cert-*-cpp,cppcoreguidelines-*'
-WarningsAsErrors: 'cert-*,cppcoreguidelines-pro-*,cppcoreguidelines-owning-memory'
+Checks: >
+  -*,
+  bugprone-use-after-move,
+  bugprone-not-null-terminated-result,
+  bugprone-easily-swappable-parameters,
+  cert-*-cpp,
+  clang-analyzer-core*,
+  clang-analyzer-cplusplus*,
+  cppcoreguidelines-*
+WarningsAsErrors: >
+  bugprone-use-after-move,
+  bugprone-not-null-terminated-result,
+  cert-*,
+  cppcoreguidelines-pro-*,
+  cppcoreguidelines-owning-memory,
+  clang-analyzer-*
 UseColor: true
 

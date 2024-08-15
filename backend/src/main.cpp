@@ -1,6 +1,12 @@
 #include "logger.hpp"
 
+// We have no control over outside code, so it shouldn't be subject to lints
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Weffc++"
+#pragma GCC diagnostic ignored "-Wnon-virtual-dtor"
 #include "crow.h"
+#pragma GCC diagnostic pop
+
 
 #include <iostream>
 #include <stdexcept>

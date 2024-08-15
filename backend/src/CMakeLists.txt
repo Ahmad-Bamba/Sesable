@@ -1,8 +1,6 @@
 set(BACKEND_SRCS
     main.cpp
     logger.cpp
-    table.cpp
-    organization.cpp
 )
 
 set(BACKEND_LINK_LIBS
@@ -31,16 +29,21 @@ else()
     set(DEBUG_INFO "-g0")
 endif()
 
+target_compile_options(sesable_backend
+    PRIVATE ${OPTIMIZATION_LEVEL}
+    PRIVATE "-Wall"
+    PRIVATE "-Wextra"
+    PRIVATE "-Weffc++"
+    PRIVATE "-Werror"
+    PRIVATE "-pedantic"
+)
+
 if (NOT SESABLE_SANITIZE)
-    target_compile_options(sesable_backend 
-        PRIVATE ${OPTIMIZATION_LEVEL}
+    target_compile_options(sesable_backend
         PRIVATE ${DEBUG_INFO}
-        PRIVATE "-Wall"
-        PRIVATE "-Werror"
     )
 else()
     target_compile_options(sesable_backend
-        PRIVATE ${OPTIMIZATION_LEVEL}
         PRIVATE "-ggdb3"
         PRIVATE "-fsanitize=address"
         PRIVATE "-fsanitize=undefined"
