@@ -1,9 +1,0 @@
-[submodule "backend/third_party/Crow"]
-	path = backend/third_party/Crow
-	url = https://github.com/CrowCpp/Crow.git
-[submodule "backend/third_party/aes"]
-	path = backend/third_party/aes
-	url = https://github.com/kokke/tiny-AES-c.git
-[submodule "backend/third_party/liboauthcpp"]
-	path = backend/third_party/liboauthcpp
-	url = https://github.com/sirikata/liboauthcpp.git

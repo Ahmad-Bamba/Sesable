@@ -6,6 +6,8 @@ find_package(Git REQUIRED)
 
 file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/root)
 
+message(STATUS "Third-party build dependencies for backend.")
+
 message(STATUS "Downloading asio...")
 FetchContent_Declare(
     asio
@@ -16,7 +18,8 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(asio)
 list(APPEND CMAKE_INCLUDE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/third_party/asio/include)
 
-if(NOT BOOST_DATE_TYPE_FOUND OR BOOST_SYSTEM_FOUND)
+find_package(Boost CONFIG COMPONENTS date_time system)
+if(NOT BOOST_DATE_TYPE_FOUND OR NOT BOOST_SYSTEM_FOUND)
     set(BOOST_INCLUDE_LIBRARIES data_time system)
     set(BOOST_ENABLE_CMAKE ON)
     message(STATUS "Downloading boost...")
@@ -24,14 +27,38 @@ if(NOT BOOST_DATE_TYPE_FOUND OR BOOST_SYSTEM_FOUND)
         Boost
         GIT_REPOSITORY https://github.com/boostorg/boost.git
         GIT_TAG boost-1.64.0
-        SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/boost-1.64
+        SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/boost
         OVERRIDE_FIND_PACKAGE
     )
     FetchContent_MakeAvailable(Boost)
 endif()
 
-if (NOT EXISTS third_party/Crow/include/crow.h)
-        execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init ${CMAKE_CURRENT_SOURCE_DIR}/third_party/Crow)
-endif()
+# if (NOT EXISTS third_party/Crow/include/crow.h)
+#         execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init ${CMAKE_CURRENT_SOURCE_DIR}/third_party/Crow)
+# endif()
 
-add_subdirectory(third_party/Crow)
+# add_subdirectory(third_party/Crow)
+
+message(STATUS "Downloading Crow...")
+FetchContent_Declare(
+    Crow
+    GIT_REPOSITORY https://github.com/CrowCpp/Crow.git
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/Crow
+    GIT_TAG v1.2.0
+)
+
+message(STATUS "Downloading tiny-aes-c...")
+FetchContent_Declare(
+    tiny-aes
+    GIT_REPOSITORY https://github.com/kokke/tiny-AES-c.git
+)
+
+message(STATUS "Downloading liboauthcpp...")
+FetchContent_Declare(
+    oauthcpp
+    GIT_REPOSITORY https://github.com/sirikata/liboauthcpp.git
+    SOURCE_SUBDIR build
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/aes
+)
+
+FetchContent_MakeAvailable(Crow tiny-aes oauthcpp)

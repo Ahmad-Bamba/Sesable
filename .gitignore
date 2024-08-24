@@ -71,6 +71,7 @@ sketch
 build/
 
 # Asio and Boost dependencies for crow
-backend/third_party/asio
-backend/third_party/boost-1.64
+backend/third_party/*
+!backend/third_party/README.md
+
 
