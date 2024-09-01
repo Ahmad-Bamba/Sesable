@@ -18,39 +18,31 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(asio)
 list(APPEND CMAKE_INCLUDE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/third_party/asio/include)
 
+message(STATUS "Checking for boost...")
 find_package(Boost CONFIG COMPONENTS date_time system)
-if(NOT BOOST_DATE_TYPE_FOUND OR NOT BOOST_SYSTEM_FOUND)
-    set(BOOST_INCLUDE_LIBRARIES data_time system)
-    set(BOOST_ENABLE_CMAKE ON)
-    message(STATUS "Downloading boost...")
+if (NOT BOOST_DATE_TYPE_FOUND OR NOT BOOST_SYSTEM_FOUND)
+    message(STATUS "Did not find boost onsystem. Downlaoding instead...")
     FetchContent_Declare(
-        Boost
+        boost
         GIT_REPOSITORY https://github.com/boostorg/boost.git
-        GIT_TAG boost-1.64.0
-        SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/boost
-        OVERRIDE_FIND_PACKAGE
+        GIT_TAG        e712782de0b8bbd0efb710ed1584b3c1c3e60a52 # boost-1.64.0
+        SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/boost-1.64
     )
-    FetchContent_MakeAvailable(Boost)
-endif()
-
-# if (NOT EXISTS third_party/Crow/include/crow.h)
-#         execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init ${CMAKE_CURRENT_SOURCE_DIR}/third_party/Crow)
-# endif()
-
-# add_subdirectory(third_party/Crow)
+endif ()
 
 message(STATUS "Downloading Crow...")
 FetchContent_Declare(
     Crow
     GIT_REPOSITORY https://github.com/CrowCpp/Crow.git
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/Crow
     GIT_TAG v1.2.0
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/Crow
 )
 
 message(STATUS "Downloading tiny-aes-c...")
 FetchContent_Declare(
     tiny-aes
     GIT_REPOSITORY https://github.com/kokke/tiny-AES-c.git
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/aes
 )
 
 message(STATUS "Downloading liboauthcpp...")
@@ -58,7 +50,9 @@ FetchContent_Declare(
     oauthcpp
     GIT_REPOSITORY https://github.com/sirikata/liboauthcpp.git
     SOURCE_SUBDIR build
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/aes
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/oauthcpp
 )
 
-FetchContent_MakeAvailable(Crow tiny-aes oauthcpp)
+FetchContent_MakeAvailable(Boost)
+find_package(Boost CONFIG COMPONENTS date_time system)
+FetchContent_MakeAvailable(asio Crow tiny-aes oauthcpp)
