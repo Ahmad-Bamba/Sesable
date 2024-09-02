@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Sesable",
+  "name": "Sesable -- fast, lightweight, organization-based encrypted notes.",
   "icons": [
     {
       "src": "favicon.ico",

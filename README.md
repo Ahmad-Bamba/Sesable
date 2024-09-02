@@ -1,4 +1,4 @@
-# Sesable - Web app for dead simple, encrypted, arbitary table storage
+# Sesable -- fast, lightweight, organization-based encrypted notes.
 
 ## Core idea
 You launch an instance of this web app on a server somewhere and you have the ability to log in.
