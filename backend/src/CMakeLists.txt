@@ -55,6 +55,10 @@ target_link_libraries(sesable_backend
     PRIVATE ${BACKEND_LINK_LIBS}
 )
 
+target_include_directories(sesable_backend
+    PRIVATE ${Boost_INCLUDE_DIRS}
+)
+
 if (SESABLE_LINT)
     set_target_properties(sesable_backend 
         PROPERTIES 

@@ -22,11 +22,14 @@ message(STATUS "Checking for boost...")
 find_package(Boost CONFIG COMPONENTS date_time system)
 if (NOT BOOST_DATE_TYPE_FOUND OR NOT BOOST_SYSTEM_FOUND)
     message(STATUS "Did not find boost onsystem. Downlaoding instead...")
+    set(BOOST_INCLUDE_LIBRARIES filesystem)
+    set(BOOST_ENABLE_CMAKE ON)
     FetchContent_Declare(
         boost
         GIT_REPOSITORY https://github.com/boostorg/boost.git
-        GIT_TAG        e712782de0b8bbd0efb710ed1584b3c1c3e60a52 # boost-1.64.0
-        SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/boost-1.64
+        GIT_TAG        62a4b7f40efbfe7a9b539edc14c508eb45e56e2d # boost-1.73.0
+        SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/boost-1.73
+        OVERRIDE_FIND_PACKAGE
     )
 endif ()
 
@@ -54,5 +57,5 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(Boost)
-find_package(Boost CONFIG COMPONENTS date_time system)
+find_package(Boost CONFIG COMPONENTS date_time system REQUIRED)
 FetchContent_MakeAvailable(asio Crow tiny-aes oauthcpp)
