@@ -70,8 +70,10 @@ sketch
 # CMake build folder
 build/
 
-# Asio and Boost dependencies for crow
+# Third party repos
 backend/third_party/*
 !backend/third_party/README.md
 
+# CMake
+CMakeUserPresets.json
 

@@ -1,0 +1,32 @@
+{
+  "version": 4,
+
+  "configurePresets": [
+    {
+      "name": "vcpkg",
+      "hidden": true,
+      "generator": "Unix Makefiles",
+      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+    },
+    {
+      "name": "default",
+      "displayName": "Default Sesable Build Configuration",
+      "binaryDir": "${sourceDir}/build/default",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "SESABLE_TEST": "On"
+      },
+      "inherits": "vcpkg"
+    },
+    {
+      "name": "release",
+      "displayName": "Production Sesable Build Configuration",
+      "binaryDir": "${sourceDir}/build/release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "SESABLE_LINT": "Off"
+      },
+      "inherits": "vcpkg"
+    }
+  ]
+}

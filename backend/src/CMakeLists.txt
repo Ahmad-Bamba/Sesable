@@ -4,7 +4,11 @@ set(BACKEND_SRCS
 )
 
 set(BACKEND_LINK_LIBS
-    Crow::Crow
+    # Crow::Crow
+    Boost::date_time
+    Boost::system
+    JsonCpp::JsonCpp
+    Drogon::Drogon
 )
 if (SESABLE_SANITIZE)
     list(APPEND BACKEND_LINK_LIBS 
@@ -59,7 +63,7 @@ target_include_directories(sesable_backend
     PRIVATE ${Boost_INCLUDE_DIRS}
 )
 
-if (SESABLE_LINT)
+if (SESABLE_LINT AND CLANG_TIDY_EXE)
     set_target_properties(sesable_backend 
         PROPERTIES 
         CXX_CLANG_TIDY "${CLANG_TIDY_EXE};--config-file=${PROJECT_SOURCE_DIR}/.clang-tidy"

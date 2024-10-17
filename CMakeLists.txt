@@ -10,7 +10,7 @@ option(SESABLE_LINT "Build with clang-tidy checks enabled" ON)
 option(SESABLE_SANITIZE "Build with address and undefined behavior sanitizers" OFF)
 option(SESABLE_TESTS "Build sesable backend unit tests" OFF)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

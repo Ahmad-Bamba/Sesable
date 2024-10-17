@@ -1,0 +1,9 @@
+{
+  "dependencies": [
+    "drogon",
+    "jsoncpp",
+    "tiny-aes-c",
+    "boost-date-time",
+    "boost-system"
+  ]
+}
