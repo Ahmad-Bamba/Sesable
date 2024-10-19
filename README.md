@@ -11,12 +11,16 @@ Accounts can be removed from organizations if all other members of the organizat
 Any member of an organization can add or delete an organization's tables.
 
 ## Use case
-Small organizations or individuals that want a private, secure, and democratized solution to storing sensitive information that they completely control.
+Small organizations or individuals that want a private, secure, and democratized solution to storing sensitive information that they
+completely control.
+
+Like [cryptpad](https://cryptpad.fr/), but with the goal of focusing on notes and tables, not trying to recreate a full office suite.
+The goal of being faster, more lightweight, and dead simple to install on any webserver or locally.
 
 ## Build dependencies and instructions
 To build you will need:
 - cmake (at least version 3.22) and vcpkg
-- node and npm (in your path)
+- node (version 18 or later), npm, and npx in your path
 
 It is also strongly recommended to have the following programs in your path:
 - clang-tidy
@@ -32,3 +36,10 @@ Read through the CMakePresets.json and choose a preset to inherit from.
 Currently the presets are:
 - default: Builds an optimized build with debug info, with unit tests and extra linting turned on. Useful for development.
 - release: Builds optimized Sesable applicaiton only.
+
+If you don't have vcpkg, but have all the other dependencies you can also install all the dependencies listed in vcpkg.json manually, and
+build CMake normally.
+
+## Installation
+
+TODO:
