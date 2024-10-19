@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import Slider from "./Slider";
+import React, { useEffect, useState } from "react";
 import { debounceTime } from "../lib/Constants";
 
 interface OptionsNoteProps {}

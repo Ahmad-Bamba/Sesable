@@ -6,9 +6,9 @@ project(sesable
     LANGUAGES CXX
 )
 
-option(SESABLE_LINT "Build with clang-tidy checks enabled" ON)
-option(SESABLE_SANITIZE "Build with address and undefined behavior sanitizers" OFF)
-option(SESABLE_TESTS "Build sesable backend unit tests" OFF)
+option(SESABLE_LINT "Build sesable with software linting enabled?" ON)
+option(SESABLE_SANITIZE_BACKEND "Build backend with address and undefined behavior sanitizers?" OFF)
+option(SESABLE_TESTS "Build sesable backend unit tests?" OFF)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_EXTENSIONS OFF)

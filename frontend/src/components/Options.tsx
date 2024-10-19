@@ -1,3 +1,4 @@
+import React from 'react';
 import OptionsFile from "./OptionsFile";
 import OptionsText from "./OptionsNote";
 

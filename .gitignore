@@ -77,3 +77,5 @@ backend/third_party/*
 # CMake
 CMakeUserPresets.json
 
+# frontend
+frontend/.env

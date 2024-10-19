@@ -7,6 +7,8 @@ file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/root)
 message(STATUS "Third-party build dependencies for backend.")
 
 message(STATUS "Downloading liboauthcpp...")
+option(LIBOAUTHCPP_BUILD_TESTS OFF)
+option(LIBOAUTHCPP_BUILD_DEMOS OFF)
 FetchContent_Declare(
     oauthcpp
     GIT_REPOSITORY https://github.com/sirikata/liboauthcpp.git
